@@ -11,6 +11,36 @@
 - (NSDictionary *)hyp_parseRelationship;
 ```
 
+## Example
+
+```objc
+NSDictionary *resultDict = [@"name" hyp_parseRelationship];
+/*
+{
+    @"attribute": @"name"
+};
+*/
+
+NSDictionary *resultDict = [@"company.name" hyp_parseRelationship];
+/*
+{
+    @"relationship" : @"company",
+    @"to_many" : @NO,
+    @"attribute": @"name"
+};
+*/
+
+NSDictionary *resultDict = [@"employees[0].email" hyp_parseRelationship];
+/*
+{
+    @"relationship" : @"employees",
+    @"id": @"0",
+    @"to_many" : @YES,
+    @"attribute": @"email"
+};
+*/
+```
+
 ## Installation
 
 **NSString-HYPRelationshipParser** is available through [CocoaPods](http://cocoapods.org). To install
