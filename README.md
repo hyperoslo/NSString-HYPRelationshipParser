@@ -7,7 +7,9 @@
 
 ## Usage
 
-`<API>`
+```objc
+- (NSDictionary *)hyp_parseRelationship;
+```
 
 ## Installation
 
