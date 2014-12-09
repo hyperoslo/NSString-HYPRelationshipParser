@@ -14,5 +14,5 @@ s.requires_arc = true
 s.source_files = 'Source/**/*'
 
 s.frameworks = 'Foundation'
-s.dependency 'NSString+ZENInflections'
+s.dependency 'NSString-ZENInflections'
 end
