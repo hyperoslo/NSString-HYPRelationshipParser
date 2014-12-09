@@ -1,8 +1,6 @@
-//
-//  Tests.m
-//
-
 @import XCTest;
+
+#import "NSString+HYPRelationshipParser.h"
 
 @interface Tests : XCTestCase
 
@@ -10,24 +8,79 @@
 
 @implementation Tests
 
-- (void)setUp
+- (void)testParseRelationship
 {
-    [super setUp];
+    NSString *testString = @"name";
+    NSDictionary *resultDict = @{@"attribute": @"name"};
 
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    XCTAssertEqualObjects(resultDict, [testString hyp_parseRelationship]);
+
+    testString = @"source";
+    resultDict = @{@"attribute": @"source"};
+
+    XCTAssertEqualObjects(resultDict, [testString hyp_parseRelationship]);
 }
 
-- (void)tearDown
+- (void)testParseToManyRelationship
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    NSString *testString = @"relatives[0].name";
 
-    [super tearDown];
+    NSDictionary *evaluatedDict = @{@"relationship" : @"relatives",
+                                 @"id": @"0",
+                                 @"to_many" : @YES,
+                                 @"attribute": @"name"};
+
+    NSDictionary *resultDict = [testString hyp_parseRelationship];
+
+    XCTAssertNotNil(resultDict);
+    XCTAssertEqualObjects([resultDict valueForKey:@"relationship"], @"relatives");
+    XCTAssertEqualObjects([resultDict valueForKey:@"id"], @"0");
+    XCTAssertEqualObjects([resultDict valueForKey:@"to_many"], @YES);
+    XCTAssertEqualObjects([resultDict valueForKey:@"attribute"], @"name");
+
+    testString = @"relatives[1].email";
+
+    evaluatedDict = @{@"relationship" : @"relatives",
+                   @"id": @"1",
+                   @"to_many" : @YES,
+                   @"attribute": @"email"};
+
+    resultDict = [testString hyp_parseRelationship];
+
+    XCTAssertNotNil(resultDict);
+    XCTAssertEqualObjects([resultDict valueForKey:@"relationship"], @"relatives");
+    XCTAssertEqualObjects([resultDict valueForKey:@"id"], @"1");
+    XCTAssertEqualObjects([resultDict valueForKey:@"to_many"], @YES);
+    XCTAssertEqualObjects([resultDict valueForKey:@"attribute"], @"email");
 }
 
-- (void)testSampleTest
+- (void)testParseToOneRelationship
 {
-    NSArray *array;
-    XCTAssertNil(array);
+    NSString *testString = @"contract.name";
+
+    NSDictionary *evaluatedDict = @{@"relationship" : @"contract",
+                                 @"to_many" : @NO,
+                                 @"attribute" : @"name"};
+
+    NSDictionary *resultDict = [testString hyp_parseRelationship];
+
+    XCTAssertNotNil(resultDict);
+    XCTAssertEqualObjects([resultDict valueForKey:@"relationship"], @"contract");
+    XCTAssertEqualObjects([resultDict valueForKey:@"to_many"], @NO);
+    XCTAssertEqualObjects([resultDict valueForKey:@"attribute"], @"name");
+
+    testString = @"company.email";
+
+    evaluatedDict = @{@"relationship" : @"company",
+                   @"to_many" : @NO,
+                   @"attribute" : @"email"};
+
+    resultDict = [testString hyp_parseRelationship];
+
+    XCTAssertNotNil(resultDict);
+    XCTAssertEqualObjects([resultDict valueForKey:@"relationship"], @"company");
+    XCTAssertEqualObjects([resultDict valueForKey:@"to_many"], @NO);
+    XCTAssertEqualObjects([resultDict valueForKey:@"attribute"], @"email");
 }
 
 @end
