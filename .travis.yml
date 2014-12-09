@@ -1,0 +1,2 @@
+language: objective-c
+script: xctool -workspace Tests/Tests.xcworkspace -scheme Tests -sdk iphonesimulator build test
