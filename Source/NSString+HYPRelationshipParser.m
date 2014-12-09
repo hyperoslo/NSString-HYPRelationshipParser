@@ -37,7 +37,7 @@
                         if ([scanner scanUpToString:@"\n" intoString:&name]) {
 
                             if (relationship && objectID && name) {
-                                
+
                                 return @{@"relationship" : relationship,
                                          @"id": objectID,
                                          @"to_many" : @YES,
