@@ -39,7 +39,7 @@
                             if (relationship && objectID && name) {
 
                                 return @{@"relationship" : relationship,
-                                         @"id": objectID,
+                                         @"index": @([objectID integerValue]),
                                          @"to_many" : @YES,
                                          @"attribute": name};
                             }
