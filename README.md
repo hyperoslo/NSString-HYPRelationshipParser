@@ -34,7 +34,7 @@ NSDictionary *resultDict = [@"employees[0].email" hyp_parseRelationship];
 /*
 {
     @"relationship" : @"employees",
-    @"id": @"0",
+    @"index": @0,
     @"to_many" : @YES,
     @"attribute": @"email"
 };
