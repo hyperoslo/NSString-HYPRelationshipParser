@@ -26,30 +26,30 @@
     NSString *testString = @"relatives[0].name";
 
     NSDictionary *evaluatedDict = @{@"relationship" : @"relatives",
-                                 @"id": @"0",
-                                 @"to_many" : @YES,
-                                 @"attribute": @"name"};
+                                    @"index": @0,
+                                    @"to_many" : @YES,
+                                    @"attribute": @"name"};
 
     NSDictionary *resultDict = [testString hyp_parseRelationship];
 
     XCTAssertNotNil(resultDict);
     XCTAssertEqualObjects([resultDict valueForKey:@"relationship"], @"relatives");
-    XCTAssertEqualObjects([resultDict valueForKey:@"id"], @"0");
+    XCTAssertEqualObjects([resultDict valueForKey:@"index"], @0);
     XCTAssertEqualObjects([resultDict valueForKey:@"to_many"], @YES);
     XCTAssertEqualObjects([resultDict valueForKey:@"attribute"], @"name");
 
     testString = @"relatives[1].email";
 
     evaluatedDict = @{@"relationship" : @"relatives",
-                   @"id": @"1",
-                   @"to_many" : @YES,
-                   @"attribute": @"email"};
+                      @"index": @1,
+                      @"to_many" : @YES,
+                      @"attribute": @"email"};
 
     resultDict = [testString hyp_parseRelationship];
 
     XCTAssertNotNil(resultDict);
     XCTAssertEqualObjects([resultDict valueForKey:@"relationship"], @"relatives");
-    XCTAssertEqualObjects([resultDict valueForKey:@"id"], @"1");
+    XCTAssertEqualObjects([resultDict valueForKey:@"index"], @1);
     XCTAssertEqualObjects([resultDict valueForKey:@"to_many"], @YES);
     XCTAssertEqualObjects([resultDict valueForKey:@"attribute"], @"email");
 }
@@ -59,8 +59,8 @@
     NSString *testString = @"contract.name";
 
     NSDictionary *evaluatedDict = @{@"relationship" : @"contract",
-                                 @"to_many" : @NO,
-                                 @"attribute" : @"name"};
+                                    @"to_many" : @NO,
+                                    @"attribute" : @"name"};
 
     NSDictionary *resultDict = [testString hyp_parseRelationship];
 
@@ -72,8 +72,8 @@
     testString = @"company.email";
 
     evaluatedDict = @{@"relationship" : @"company",
-                   @"to_many" : @NO,
-                   @"attribute" : @"email"};
+                      @"to_many" : @NO,
+                      @"attribute" : @"email"};
 
     resultDict = [testString hyp_parseRelationship];
 
