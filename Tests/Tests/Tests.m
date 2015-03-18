@@ -82,6 +82,7 @@
 - (void)testFaultyStrings
 {
     XCTAssertNil([@"relatives0].name" hyp_parseRelationship]);
+    XCTAssertNil([@"relatives0]].name" hyp_parseRelationship]);
     XCTAssertNil([@"[relatives.name" hyp_parseRelationship]);
     XCTAssertNil([@"relatives." hyp_parseRelationship]);
 }

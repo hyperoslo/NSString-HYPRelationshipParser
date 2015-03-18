@@ -17,57 +17,57 @@
         parsedRelationship = [HYPParsedRelationship new];
         parsedRelationship.attribute = self;
     } else {
-        NSCharacterSet *toManySet = [NSCharacterSet characterSetWithCharactersInString:@"[]"];
-        NSRange toManyRange = [self rangeOfCharacterFromSet:toManySet];
-        BOOL isToManyRelationship = (toManyRange.location != NSNotFound);
+        NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"[]."];
+        NSRange range = [self rangeOfCharacterFromSet:set];
+        BOOL isRelationship = (range.location != NSNotFound);
 
-        NSString *relationship, *attribute;
-        NSNumber *index;
-        BOOL toMany, faulty;
+        if (isRelationship) {
+            NSCharacterSet *toManySet = [NSCharacterSet characterSetWithCharactersInString:@"[]"];
+            NSRange toManyRange = [self rangeOfCharacterFromSet:toManySet];
+            BOOL isToManyRelationship = (toManyRange.location != NSNotFound);
 
-        if (isToManyRelationship) {
-            toMany = YES;
+            if (isToManyRelationship) {
+                NSScanner *scanner = [NSScanner scannerWithString:self];
+                NSString *relationship;
 
-            NSScanner *scanner = [NSScanner scannerWithString:self];
-            if ([scanner scanUpToString:@"[" intoString:&relationship]) {
-                if (scanner.isAtEnd) {
-                    faulty = YES;
-                } else {
-                    scanner.scanLocation++;
+                if ([scanner scanUpToString:@"[" intoString:&relationship]) {
 
-                    NSString *indexString;
-                    if ([scanner scanUpToString:@"]" intoString:&indexString]) {
-                        index = @([indexString integerValue]);
+                    if (!scanner.isAtEnd) {
                         scanner.scanLocation++;
 
-                        if (!scanner.isAtEnd) {
+                        NSString *objectID;
+                        if ([scanner scanUpToString:@"]" intoString:&objectID]) {
                             scanner.scanLocation++;
-                            [scanner scanUpToString:@"\n" intoString:&attribute];
+
+                            NSString *name;
+                            if (!scanner.isAtEnd) {
+                                scanner.scanLocation++;
+                                [scanner scanUpToString:@"\n" intoString:&name];
+                            }
+
+                            if (relationship && objectID) {
+                                parsedRelationship = [HYPParsedRelationship new];
+                                parsedRelationship.relationship = relationship;
+                                parsedRelationship.index = @([objectID integerValue]);
+                                parsedRelationship.toMany = YES;
+                                parsedRelationship.attribute = name;
+                            }
                         }
                     }
                 }
-            } else {
-                faulty = YES;
-            }
-        } else {
-            NSArray *elements = [self componentsSeparatedByString:@"."];
-            BOOL isValidToOneRelationship = (elements.count == 2 &&
-                                             [elements.firstObject length] > 0 &&
-                                             [elements.lastObject length] > 0);
-            if (isValidToOneRelationship) {
-                relationship = [elements firstObject];
-                attribute = [elements lastObject];
-            } else {
-                faulty = YES;
-            }
-        }
 
-        if (!faulty) {
-            parsedRelationship = [HYPParsedRelationship new];
-            parsedRelationship.relationship = relationship;
-            parsedRelationship.index = index;
-            parsedRelationship.toMany = toMany;
-            parsedRelationship.attribute = attribute;
+            } else {
+                NSArray *elements = [self componentsSeparatedByString:@"."];
+                BOOL isValidToOneRelationship = (elements.count == 2 &&
+                                                 [elements.firstObject length] > 0 &&
+                                                 [elements.lastObject length] > 0);
+                if (isValidToOneRelationship) {
+                    parsedRelationship = [HYPParsedRelationship new];
+                    parsedRelationship.relationship = [elements firstObject];
+                    parsedRelationship.toMany = NO;
+                    parsedRelationship.attribute = [elements lastObject];
+                }
+            }
         }
     }
 
@@ -78,7 +78,7 @@
 {
     HYPParsedRelationship *parsedRelationship = [self hyp_parseRelationship];
 
-    return [NSString stringWithFormat:@"%@[%@].%@", parsedRelationship.relationship, @(index), parsedRelationship.attribute];
+    return [NSString stringWithFormat:@"%@[%ld].%@", parsedRelationship.relationship, index, parsedRelationship.attribute];
 }
 
 @end
