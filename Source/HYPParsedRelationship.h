@@ -7,4 +7,6 @@
 @property (nonatomic) BOOL toMany;
 @property (nonatomic) NSString *attribute;
 
+- (NSString *)key;
+
 @end

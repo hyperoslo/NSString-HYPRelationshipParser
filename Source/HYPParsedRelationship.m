@@ -10,4 +10,9 @@
             (!self.attribute || [self.attribute isEqualToString:object.attribute]));
 }
 
+- (NSString *)key
+{
+    return nil;
+}
+
 @end
