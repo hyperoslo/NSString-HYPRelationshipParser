@@ -11,10 +11,8 @@
 		14A892B61A372C2000D36669 /* NSString+HYPRelationshipParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A892B51A372C2000D36669 /* NSString+HYPRelationshipParser.m */; };
 		14B564731A06D87B00342CDA /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 14B564721A06D87B00342CDA /* .travis.yml */; };
 		14C4182E1A01919C00636FD6 /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C4182D1A01919C00636FD6 /* Tests.m */; };
-		14C4183C1A019A1500636FD6 /* CONTRIBUTING.md in Sources */ = {isa = PBXBuildFile; fileRef = 14C418381A019A1500636FD6 /* CONTRIBUTING.md */; };
 		14C4183D1A019A1500636FD6 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 14C418391A019A1500636FD6 /* LICENSE.md */; };
 		14C4183E1A019A1500636FD6 /* NSString-HYPRelationshipParser.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 14C4183A1A019A1500636FD6 /* NSString-HYPRelationshipParser.podspec */; };
-		14C4183F1A019A1500636FD6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 14C4183B1A019A1500636FD6 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -181,8 +179,6 @@
 			files = (
 				14A892B61A372C2000D36669 /* NSString+HYPRelationshipParser.m in Sources */,
 				142513651AB9ADAF00E60E69 /* HYPParsedRelationship.m in Sources */,
-				14C4183F1A019A1500636FD6 /* README.md in Sources */,
-				14C4183C1A019A1500636FD6 /* CONTRIBUTING.md in Sources */,
 				14C4182E1A01919C00636FD6 /* Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

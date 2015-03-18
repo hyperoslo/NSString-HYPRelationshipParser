@@ -31,7 +31,7 @@
 {
     HYPParsedRelationship *result = [HYPParsedRelationship new];
     result.relationship = @"relatives";
-    result.index = 0;
+    result.index = @0;
     result.toMany = YES;
     result.attribute = @"first_name";
 
@@ -42,7 +42,7 @@
 {
     HYPParsedRelationship *result = [HYPParsedRelationship new];
     result.relationship = @"relatives";
-    result.index = 1;
+    result.index = @1;
     result.toMany = YES;
     result.attribute = @"email";
 
@@ -88,7 +88,7 @@
 {
     HYPParsedRelationship *result = [HYPParsedRelationship new];
     result.relationship = @"contacts";
-    result.index = 2;
+    result.index = @2;
     result.attribute = @"first_name";
 
     XCTAssertEqualObjects([result key], @"contacts[2].first_name");
@@ -98,7 +98,7 @@
 {
     HYPParsedRelationship *result = [HYPParsedRelationship new];
     result.relationship = @"contacts";
-    result.index = 2;
+    result.index = @2;
 
     XCTAssertEqualObjects([result key], @"contacts[2]");
 }

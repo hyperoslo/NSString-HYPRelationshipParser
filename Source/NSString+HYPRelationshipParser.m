@@ -44,7 +44,7 @@
                                 if (relationship && objectID && name) {
                                     parsedRelationship = [HYPParsedRelationship new];
                                     parsedRelationship.relationship = relationship;
-                                    parsedRelationship.index = [objectID integerValue];
+                                    parsedRelationship.index = @([objectID integerValue]);
                                     parsedRelationship.toMany = YES;
                                     parsedRelationship.attribute = name;
                                 }
