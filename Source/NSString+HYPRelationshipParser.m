@@ -78,7 +78,7 @@
 {
     HYPParsedRelationship *parsedRelationship = [self hyp_parseRelationship];
 
-    return [NSString stringWithFormat:@"%@[%ld].%@", parsedRelationship.relationship, index, parsedRelationship.attribute];
+    return [NSString stringWithFormat:@"%@[%@].%@", parsedRelationship.relationship, @(index), parsedRelationship.attribute];
 }
 
 @end
