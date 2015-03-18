@@ -24,6 +24,10 @@
                 NSString *relationship = nil;
 
                 if ([scanner scanUpToString:@"[" intoString:&relationship]) {
+                    if (scanner.isAtEnd) {
+                        return nil;
+                    }
+
                     scanner.scanLocation++;
 
                     NSString *objectID = nil;
@@ -44,7 +48,10 @@
 
             } else {
                 NSArray *elements = [self componentsSeparatedByString:@"."];
-                if (elements) {
+                BOOL isValidToOneRelationship = (elements.count == 2 &&
+                                                 [elements.firstObject length] > 0 &&
+                                                 [elements.lastObject length] > 0);
+                if (isValidToOneRelationship) {
                     return @{@"relationship" : [elements firstObject],
                              @"to_many" : @NO,
                              @"attribute" : [elements lastObject]};
