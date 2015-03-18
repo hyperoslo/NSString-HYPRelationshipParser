@@ -1,7 +1,9 @@
 @import Foundation;
 
+@class HYPParsedRelationship;
+
 @interface NSString (HYPRelationshipParser)
 
-- (NSDictionary *)hyp_parseRelationship;
+- (HYPParsedRelationship *)hyp_parseRelationship;
 
 @end
