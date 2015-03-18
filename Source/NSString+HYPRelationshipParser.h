@@ -6,4 +6,6 @@
 
 - (HYPParsedRelationship *)hyp_parseRelationship;
 
+- (NSString *)hyp_updateRelationshipIndex:(NSInteger)index;
+
 @end

@@ -9,6 +9,8 @@
 
 @implementation Tests
 
+#pragma mark - Category
+
 - (void)testParseRelationshipA
 {
     HYPParsedRelationship *result = [HYPParsedRelationship new];
@@ -29,7 +31,7 @@
 {
     HYPParsedRelationship *result = [HYPParsedRelationship new];
     result.relationship = @"relatives";
-    result.index = 0;
+    result.index = @0;
     result.toMany = YES;
     result.attribute = @"first_name";
 
@@ -40,11 +42,21 @@
 {
     HYPParsedRelationship *result = [HYPParsedRelationship new];
     result.relationship = @"relatives";
-    result.index = 1;
+    result.index = @1;
     result.toMany = YES;
     result.attribute = @"email";
 
     XCTAssertEqualObjects([@"relatives[1].email" hyp_parseRelationship], result);
+}
+
+- (void)testParseToManyRelationshipC
+{
+    HYPParsedRelationship *result = [HYPParsedRelationship new];
+    result.relationship = @"relatives";
+    result.index = @2;
+    result.toMany = YES;
+
+    XCTAssertEqualObjects([@"relatives[2]" hyp_parseRelationship], result);
 }
 
 - (void)testParseToOneRelationshipA
@@ -73,6 +85,41 @@
     XCTAssertNil([@"relatives0]].name" hyp_parseRelationship]);
     XCTAssertNil([@"[relatives.name" hyp_parseRelationship]);
     XCTAssertNil([@"relatives." hyp_parseRelationship]);
+}
+
+- (void)testUpdateRelationshipIndex
+{
+    XCTAssertEqualObjects([@"contacts[2].first_name" hyp_updateRelationshipIndex:3], @"contacts[3].first_name");
+}
+
+#pragma mark - Model
+
+- (void)testKeyA
+{
+    HYPParsedRelationship *result = [HYPParsedRelationship new];
+    result.relationship = @"contacts";
+    result.index = @2;
+    result.attribute = @"first_name";
+
+    XCTAssertEqualObjects([result key], @"contacts[2].first_name");
+}
+
+- (void)testKeyB
+{
+    HYPParsedRelationship *result = [HYPParsedRelationship new];
+    result.relationship = @"contacts";
+    result.index = @2;
+
+    XCTAssertEqualObjects([result key], @"contacts[2]");
+}
+
+- (void)testKeyC
+{
+    HYPParsedRelationship *result = [HYPParsedRelationship new];
+    result.relationship = @"company";
+    result.attribute = @"name";
+
+    XCTAssertEqualObjects([result key], @"company.name");
 }
 
 @end

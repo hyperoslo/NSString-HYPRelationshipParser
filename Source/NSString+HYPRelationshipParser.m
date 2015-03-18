@@ -37,17 +37,20 @@
 
                         NSString *objectID;
                         if ([scanner scanUpToString:@"]" intoString:&objectID]) {
-                            scanner.scanLocation += 2;
+                            scanner.scanLocation++;
 
                             NSString *name;
-                            if ([scanner scanUpToString:@"\n" intoString:&name]) {
-                                if (relationship && objectID && name) {
-                                    parsedRelationship = [HYPParsedRelationship new];
-                                    parsedRelationship.relationship = relationship;
-                                    parsedRelationship.index = [objectID integerValue];
-                                    parsedRelationship.toMany = YES;
-                                    parsedRelationship.attribute = name;
-                                }
+                            if (!scanner.isAtEnd) {
+                                scanner.scanLocation++;
+                                [scanner scanUpToString:@"\n" intoString:&name];
+                            }
+
+                            if (relationship && objectID) {
+                                parsedRelationship = [HYPParsedRelationship new];
+                                parsedRelationship.relationship = relationship;
+                                parsedRelationship.index = @([objectID integerValue]);
+                                parsedRelationship.toMany = YES;
+                                parsedRelationship.attribute = name;
                             }
                         }
                     }
@@ -69,6 +72,13 @@
     }
 
     return parsedRelationship;
+}
+
+- (NSString *)hyp_updateRelationshipIndex:(NSInteger)index
+{
+    HYPParsedRelationship *parsedRelationship = [self hyp_parseRelationship];
+
+    return [NSString stringWithFormat:@"%@[%@].%@", parsedRelationship.relationship, @(index), parsedRelationship.attribute];
 }
 
 @end
