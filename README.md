@@ -8,35 +8,38 @@
 ## Usage
 
 ```objc
-- (NSDictionary *)hyp_parseRelationship;
+#import "NSString+HYPRelationshipParser.h"
+#import "HYPParsedRelationship.h"
+
+- (HYPParsedRelationship *)hyp_parseRelationship;
 ```
 
 ## Example
 
 ```objc
-NSDictionary *resultDict = [@"name" hyp_parseRelationship];
+HYPParsedRelationship *parsedRelationship = [@"name" hyp_parseRelationship];
 /*
 {
-    @"attribute": @"name"
+    parsedRelationship.attribute => @"name"
 };
 */
 
-NSDictionary *resultDict = [@"company.name" hyp_parseRelationship];
+HYPParsedRelationship *parsedRelationship = [@"company.name" hyp_parseRelationship];
 /*
 {
-    @"relationship" : @"company",
-    @"to_many" : @NO,
-    @"attribute": @"name"
+  parsedRelationship.relationship => @"company",
+  parsedRelationship.to_many => NO,
+  parsedRelationship.attribute => "name"
 };
 */
 
-NSDictionary *resultDict = [@"employees[0].email" hyp_parseRelationship];
+HYPParsedRelationship *parsedRelationship = [@"employees[0].email" hyp_parseRelationship];
 /*
 {
-    @"relationship" : @"employees",
-    @"index": @0,
-    @"to_many" : @YES,
-    @"attribute": @"email"
+    parsedRelationship.relationship => @"employees",
+    parsedRelationship.index => 0,
+    parsedRelationship.to_many => YES,
+    parsedRelationship.attribute => @"email"
 };
 */
 ```
