@@ -21,18 +21,15 @@
         NSRange toManyRange = [self rangeOfCharacterFromSet:toManySet];
         BOOL isToManyRelationship = (toManyRange.location != NSNotFound);
 
-        NSString *relationship;
-        NSString *attribute;
+        NSString *relationship, *attribute;
         NSNumber *index;
-        BOOL toMany;
-        BOOL faulty;
+        BOOL toMany, faulty;
 
         if (isToManyRelationship) {
             toMany = YES;
 
             NSScanner *scanner = [NSScanner scannerWithString:self];
             if ([scanner scanUpToString:@"[" intoString:&relationship]) {
-
                 if (scanner.isAtEnd) {
                     faulty = YES;
                 } else {
