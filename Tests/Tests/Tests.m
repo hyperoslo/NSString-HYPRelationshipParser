@@ -49,6 +49,16 @@
     XCTAssertEqualObjects([@"relatives[1].email" hyp_parseRelationship], result);
 }
 
+- (void)testParseToManyRelationshipC
+{
+    HYPParsedRelationship *result = [HYPParsedRelationship new];
+    result.relationship = @"relatives";
+    result.index = @2;
+    result.toMany = YES;
+
+    XCTAssertEqualObjects([@"relatives[2]" hyp_parseRelationship], result);
+}
+
 - (void)testParseToOneRelationshipA
 {
     HYPParsedRelationship *result = [HYPParsedRelationship new];
