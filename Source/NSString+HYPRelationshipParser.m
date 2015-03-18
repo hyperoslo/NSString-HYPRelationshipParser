@@ -73,7 +73,9 @@
 
 - (NSString *)hyp_updateRelationshipIndex:(NSInteger)index
 {
-    return nil;
+    HYPParsedRelationship *parsedRelationship = [self hyp_parseRelationship];
+
+    return [NSString stringWithFormat:@"%@[%ld].%@", parsedRelationship.relationship, index, parsedRelationship.attribute];
 }
 
 @end
