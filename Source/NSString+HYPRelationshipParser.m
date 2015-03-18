@@ -1,14 +1,16 @@
 #import "NSString+HYPRelationshipParser.h"
 
-#import "NSString+ZENInflections.h"
-
 @implementation NSString (HYPRelationshipParser)
 
 - (NSDictionary *)hyp_parseRelationship
 {
-    NSString *propertyID = [self zen_camelCase];
-    if (propertyID) {
-        return @{@"attribute" : propertyID};
+    NSMutableCharacterSet *alphanumericSet = [NSMutableCharacterSet alphanumericCharacterSet];
+    [alphanumericSet addCharactersInString:@"_"];
+
+    BOOL valid = [[self stringByTrimmingCharactersInSet:alphanumericSet] isEqualToString:@""];
+
+    if (valid) {
+        return @{@"attribute" : self};
     } else {
         NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"[]."];
         NSRange range = [self rangeOfCharacterFromSet:set];

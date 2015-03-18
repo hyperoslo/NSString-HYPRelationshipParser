@@ -15,20 +15,20 @@
 
     XCTAssertEqualObjects(resultDict, [testString hyp_parseRelationship]);
 
-    testString = @"source";
-    resultDict = @{@"attribute": @"source"};
+    testString = @"source_id";
+    resultDict = @{@"attribute": @"source_id"};
 
     XCTAssertEqualObjects(resultDict, [testString hyp_parseRelationship]);
 }
 
 - (void)testParseToManyRelationship
 {
-    NSString *testString = @"relatives[0].name";
+    NSString *testString = @"relatives[0].first_name";
 
     NSDictionary *evaluatedDict = @{@"relationship" : @"relatives",
                                     @"index": @0,
                                     @"to_many" : @YES,
-                                    @"attribute": @"name"};
+                                    @"attribute": @"first_name"};
 
     NSDictionary *resultDict = [testString hyp_parseRelationship];
 
@@ -36,7 +36,7 @@
     XCTAssertEqualObjects([resultDict valueForKey:@"relationship"], @"relatives");
     XCTAssertEqualObjects([resultDict valueForKey:@"index"], @0);
     XCTAssertEqualObjects([resultDict valueForKey:@"to_many"], @YES);
-    XCTAssertEqualObjects([resultDict valueForKey:@"attribute"], @"name");
+    XCTAssertEqualObjects([resultDict valueForKey:@"attribute"], @"first_name");
 
     testString = @"relatives[1].email";
 
@@ -56,18 +56,18 @@
 
 - (void)testParseToOneRelationship
 {
-    NSString *testString = @"contract.name";
+    NSString *testString = @"contract.first_name";
 
     NSDictionary *evaluatedDict = @{@"relationship" : @"contract",
                                     @"to_many" : @NO,
-                                    @"attribute" : @"name"};
+                                    @"attribute" : @"first_name"};
 
     NSDictionary *resultDict = [testString hyp_parseRelationship];
 
     XCTAssertNotNil(resultDict);
     XCTAssertEqualObjects([resultDict valueForKey:@"relationship"], @"contract");
     XCTAssertEqualObjects([resultDict valueForKey:@"to_many"], @NO);
-    XCTAssertEqualObjects([resultDict valueForKey:@"attribute"], @"name");
+    XCTAssertEqualObjects([resultDict valueForKey:@"attribute"], @"first_name");
 
     testString = @"company.email";
 
