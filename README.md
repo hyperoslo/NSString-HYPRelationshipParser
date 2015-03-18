@@ -19,28 +19,22 @@
 ```objc
 HYPParsedRelationship *parsedRelationship = [@"name" hyp_parseRelationship];
 /*
-{
     parsedRelationship.attribute => @"name"
-};
 */
 
 HYPParsedRelationship *parsedRelationship = [@"company.name" hyp_parseRelationship];
 /*
-{
   parsedRelationship.relationship => @"company",
   parsedRelationship.to_many => NO,
   parsedRelationship.attribute => "name"
-};
 */
 
 HYPParsedRelationship *parsedRelationship = [@"employees[0].email" hyp_parseRelationship];
 /*
-{
     parsedRelationship.relationship => @"employees",
     parsedRelationship.index => 0,
     parsedRelationship.to_many => YES,
     parsedRelationship.attribute => @"email"
-};
 */
 ```
 
