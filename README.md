@@ -50,7 +50,7 @@ it, simply add the following line to your Podfile:
 
 ## Author
 
-Hyper AS, teknologi@hyper.no
+Hyper Interaktiv AS, ios@hyper.no
 
 ## License
 
