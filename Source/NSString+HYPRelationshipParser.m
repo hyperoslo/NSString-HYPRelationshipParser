@@ -78,7 +78,13 @@
 {
     HYPParsedRelationship *parsedRelationship = [self hyp_parseRelationship];
 
-    return [NSString stringWithFormat:@"%@[%@].%@", parsedRelationship.relationship, @(index), parsedRelationship.attribute];
+    NSMutableString *newKey = [[NSString stringWithFormat:@"%@[%@]", parsedRelationship.relationship, @(index)] mutableCopy];
+
+    if (parsedRelationship.attribute) {
+        [newKey appendFormat:@".%@", parsedRelationship.attribute];
+    }
+
+    return [newKey copy];
 }
 
 @end

@@ -87,9 +87,14 @@
     XCTAssertNil([@"relatives." hyp_parseRelationship]);
 }
 
-- (void)testUpdateRelationshipIndex
+- (void)testUpdateRelationshipIndexA
 {
     XCTAssertEqualObjects([@"contacts[2].first_name" hyp_updateRelationshipIndex:3], @"contacts[3].first_name");
+}
+
+- (void)testUpdateRelationshipIndexB
+{
+    XCTAssertEqualObjects([@"contacts[2]" hyp_updateRelationshipIndex:3], @"contacts[3]");
 }
 
 #pragma mark - Model
