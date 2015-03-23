@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "NSString-HYPRelationshipParser"
-  s.version          = "0.4"
+  s.version          = "0.4.1"
   s.summary          = "Parse string representations of model relationships"
   s.homepage         = "https://github.com/hyperoslo/NSString-HYPRelationshipParser"
   s.license          = 'MIT'
